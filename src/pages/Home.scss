@@ -1,0 +1,19 @@
+body,
+head {
+  font-family: "Inter", sans-serif;
+  margin: 0;
+}
+
+.home {
+  display: flex;
+  .home-container {
+    flex: 8;
+    background-color: #f7f9fc;
+    overflow-x: hidden;
+  }
+  .top {
+    p {
+      font-size: 1.5rem;
+    }
+  }
+}
