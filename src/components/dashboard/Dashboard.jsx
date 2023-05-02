@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import GetDate from "./GetDate";
 import { getOptionPrice } from "../server-data/GetOptionPrice";
 import { socket } from "../../Auth";
-import { getOptionData } from "../server-data/GetOptionData";
+// import { getOptionData } from "../server-data/GetOptionData";
 
 const Dashboard = () => {
   const [balanceForChart, setBalanceForChart] = useState([]);
