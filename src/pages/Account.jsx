@@ -14,7 +14,6 @@ const Account = () => {
   const [currentBalance, setCurrentBalance] = useState(10000);
 
   useEffect(() => {
-    getOptionPrice();
     socket.emit("account");
     socket.on("account-chart", (data) => {
       setAccountChartData(data);
@@ -28,7 +27,7 @@ const Account = () => {
       setCurrentBalance(data);
     });
     const interval = setInterval(() => {
-      console.log("getOptionPrice Called");
+      console.log("Account Option Price Called");
       getOptionPrice();
       socket.emit("dash");
       socket.emit("account");

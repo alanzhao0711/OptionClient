@@ -37,7 +37,8 @@ const Dashboard = () => {
     });
     const interval = setInterval(() => {
       socket.emit("dash");
-      console.log("Option Price Calculated");
+      getOptionPrice();
+      console.log("Dashboard Option Price Called");
     }, 300000);
     return () => {
       clearInterval(interval);
