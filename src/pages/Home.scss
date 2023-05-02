@@ -17,3 +17,8 @@ head {
     }
   }
 }
+@media only screen and (max-width: 450px) {
+  .home {
+    display: inline;
+  }
+}
