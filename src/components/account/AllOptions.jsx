@@ -12,7 +12,9 @@ const AllOptions = () => {
 
   useEffect(() => {
     const getCurrentData = async (folder) => {
-      const res = await axios.get(`/data/${folder}`);
+      const res = await axios.get(
+        `https://optionx.herokuapp.com/data/${folder}`
+      );
       setScreenerData(res.data);
     };
 
@@ -21,7 +23,9 @@ const AllOptions = () => {
 
   useEffect(() => {
     const getCurrentData = async (folder) => {
-      const res = await axios.get(`/data/${folder}`);
+      const res = await axios.get(
+        `https://optionx.herokuapp.com/data/${folder}`
+      );
       setScreenerData(res.data);
     };
 

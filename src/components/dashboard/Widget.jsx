@@ -66,7 +66,7 @@ const Widget = (props) => {
             </div>
             <div className="d-flex flex-column align-items-center">
               <h1 className="card-text fs-1">{props.numActive}</h1>
-              <Link to="/contracts">View Open Contracts</Link>
+              <Link to="/accounts">View Open Contracts</Link>
 
               <div className="position-absolute top-0 end-0 m-3"></div>
             </div>

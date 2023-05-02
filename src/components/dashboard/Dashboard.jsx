@@ -17,7 +17,7 @@ const Dashboard = () => {
   const [numActive, setNumActive] = useState(0);
   const [recentActive, setRecentActive] = useState([]);
   useEffect(() => {
-    getOptionData();
+    // getOptionData();
     getOptionPrice();
     socket.emit("dash");
     socket.on("dashboard-nums", (data) => {
@@ -37,13 +37,11 @@ const Dashboard = () => {
     });
     const interval = setInterval(() => {
       socket.emit("dash");
-      getOptionPrice();
       console.log("Option Price Calculated");
     }, 300000);
-    return () => clearInterval(interval);
-    // return () => {
-    //   socket.disconnect();
-    // };
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   return (

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const getOptionData = async () => {
-  const API_ENDPOINT = "/getMarketData";
+  const API_ENDPOINT = process.env["OPTION_DATA_API_ENDPOINT"];
   const ESTDate = new Date(
     Date.UTC(
       new Date().getUTCFullYear(),

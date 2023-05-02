@@ -4,6 +4,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useState } from "react";
 import { styled } from "@mui/material/styles";
 import { socket } from "../../Auth";
+import { v4 as uuidv4 } from "uuid";
 
 const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
   "& .green-row": {
@@ -31,6 +32,9 @@ const ActiveOptions = () => {
     socket.on("account-PL", (data) => {
       setCurrentPL(data);
     });
+    // return () => {
+    //   socket.disconnect();
+    // };
   }, []);
 
   const getRowClassName = (params) => {
@@ -74,7 +78,7 @@ const ActiveOptions = () => {
 
   const formattedRows = data.map((row) => {
     const formattedRow = {
-      id: row._id,
+      id: uuidv4(),
       Symbol: row.Symbol,
       Price: row.Price,
       Quantity: row.Quantity,
