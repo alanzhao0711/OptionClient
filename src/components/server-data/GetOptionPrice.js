@@ -9,11 +9,9 @@ export const getOptionPrice = async () => {
 
   const isWeekday = estDate.getDay() >= 1 && estDate.getDay() <= 5;
   const isBetween9_30_4 = estDate.getHours() >= 9 && estDate.getHours() < 16;
-  const isQuarterHour = estDate.getMinutes() % 5 === 0;
-  const shouldFetchData = isWeekday && isBetween9_30_4 && isQuarterHour;
+  const shouldFetchData = isWeekday && isBetween9_30_4;
   console.log(isWeekday);
   console.log(isBetween9_30_4);
-  console.log(isQuarterHour);
   if (shouldFetchData) {
     try {
       console.log("trying to fetch data");
