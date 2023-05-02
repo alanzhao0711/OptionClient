@@ -2,7 +2,7 @@ import React from "react";
 import "./Revenue.scss";
 
 const Revenue = (props) => {
-  const percent = ((props.balance - 10000) / 100).toFixed(2);
+  const percent = ((props.balance - 8500) / 100).toFixed(2);
   return (
     <div className="revenue">
       <div className="container">
@@ -30,12 +30,12 @@ const Revenue = (props) => {
                     <div className="d-flex justify-content-between">
                       <span>All time</span>
                       <span>
-                        {props.balance >= 10000 ? (
+                        {props.balance >= 8500 ? (
                           <i className="bi bi-caret-up-fill me-1 text-success"></i>
                         ) : (
                           <i className="bi bi-caret-down-fill me-1 text-danger"></i>
                         )}
-                        {props.balance - 10000} ({percent}%)
+                        {props.balance - 8500} ({percent}%)
                       </span>
                     </div>
                   </div>

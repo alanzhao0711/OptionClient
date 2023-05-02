@@ -12,7 +12,7 @@ import { getOptionData } from "../server-data/GetOptionData";
 
 const Dashboard = () => {
   const [balanceForChart, setBalanceForChart] = useState([]);
-  const [currentBalance, setCurrentBalance] = useState(10000);
+  const [currentBalance, setCurrentBalance] = useState(8500);
   const [numTransactions, setNumTransactions] = useState(0);
   const [numActive, setNumActive] = useState(0);
   const [recentActive, setRecentActive] = useState([]);

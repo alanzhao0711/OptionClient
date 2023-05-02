@@ -92,7 +92,7 @@ const ChartComponent = (props) => {
                   }).format(balance);
 
                 const currentBalance = point.data.y;
-                const previousBalance = 10000;
+                const previousBalance = 8500;
                 const percentChange =
                   ((currentBalance - previousBalance) / previousBalance) * 100;
                 const percentChangeFormatted = percentChange.toFixed(1);

@@ -22,18 +22,18 @@ const Widget = (props) => {
             <div className="position-absolute top-0 end-0 m-3">
               <div
                 className={`"${
-                  props.currentBalance >= 10000 ? "text-success" : "text-danger"
+                  props.currentBalance >= 8500 ? "text-success" : "text-danger"
                 } fs-6"`}
               >
                 <i
                   className={`"bi bi-caret-${
-                    props.currentBalance >= 10000
+                    props.currentBalance >= 8500
                       ? "up-fill text-success"
                       : "down-fill text-danger"
                   } me-1"`}
                 ></i>
                 <span>
-                  {(((props.currentBalance - 10000) / 10000) * 100).toFixed(2)}%
+                  {(((props.currentBalance - 8500) / 8500) * 100).toFixed(2)}%
                 </span>
               </div>
             </div>
