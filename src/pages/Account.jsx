@@ -6,7 +6,6 @@ import ActiveOptions from "../components/dashboard/ActiveOptions";
 import { useState } from "react";
 import getDate from "../components/dashboard/GetDate";
 import { socket } from "../Auth";
-import { getOptionPrice } from "../components/server-data/GetOptionPrice";
 
 const Account = () => {
   const [amountEarnedToday, setAmountEarnedToday] = useState([]);
@@ -27,8 +26,6 @@ const Account = () => {
       setCurrentBalance(data);
     });
     const interval = setInterval(() => {
-      console.log("Account Option Price Called");
-      getOptionPrice();
       socket.emit("dash");
       socket.emit("account");
     }, 300000);

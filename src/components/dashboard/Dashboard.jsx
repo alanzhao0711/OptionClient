@@ -6,9 +6,7 @@ import StockCard from "./StockCard";
 import { v4 as uuidv4 } from "uuid";
 import { useEffect, useState } from "react";
 import GetDate from "./GetDate";
-import { getOptionPrice } from "../server-data/GetOptionPrice";
 import { socket } from "../../Auth";
-// import { getOptionData } from "../server-data/GetOptionData";
 
 const Dashboard = () => {
   const [balanceForChart, setBalanceForChart] = useState([]);
@@ -17,8 +15,6 @@ const Dashboard = () => {
   const [numActive, setNumActive] = useState(0);
   const [recentActive, setRecentActive] = useState([]);
   useEffect(() => {
-    // getOptionData();
-    getOptionPrice();
     socket.emit("dash");
     socket.on("dashboard-nums", (data) => {
       setNumTransactions(data.num_transactions);
@@ -37,8 +33,6 @@ const Dashboard = () => {
     });
     const interval = setInterval(() => {
       socket.emit("dash");
-      getOptionPrice();
-      console.log("Dashboard Option Price Called");
     }, 300000);
     return () => {
       clearInterval(interval);
