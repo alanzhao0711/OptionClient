@@ -40,6 +40,7 @@ const AllOptions = () => {
       <div className="card">
         <div className="card-body">
           <h4>Top 10 Contract for Today</h4>
+          <p style={{ fontSize: "1rem" }}>New data come in daily at 10AM EST</p>
           <hr className="my-4" />
           <div className="tabs">
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
