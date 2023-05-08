@@ -5,6 +5,9 @@ import { useState } from "react";
 import { styled } from "@mui/material/styles";
 import { socket } from "../../Auth";
 import { v4 as uuidv4 } from "uuid";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
 
 const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
   "& .green-row": {
@@ -24,6 +27,7 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
 const ActiveOptions = () => {
   const [data, setData] = useState([]);
   const [currentPL, setCurrentPL] = useState(0);
+  const [value, setValue] = useState("BullPut");
   useEffect(() => {
     socket.emit("dash");
     socket.on("all-active-options", (data) => {
@@ -46,6 +50,10 @@ const ActiveOptions = () => {
     } else {
       return "red-row";
     }
+  };
+
+  const handleChange = (e, newVal) => {
+    setValue(newVal);
   };
 
   const [sortModel, setSortModel] = useState([
@@ -76,7 +84,10 @@ const ActiveOptions = () => {
     { field: "Leg 4", headerName: "Leg 4", width: 100 },
   ];
 
-  const formattedRows = data.map((row) => {
+  const filterdData = data.filter((row) => {
+    return row.Strategy === value;
+  });
+  const formattedRows = filterdData.map((row) => {
     const formattedRow = {
       id: uuidv4(),
       Symbol: row.Symbol,
@@ -126,7 +137,20 @@ const ActiveOptions = () => {
         <div className="card-body">
           <h4 className="card-title mb-4">My contracts</h4>
           <h4>${currentPL.toFixed(2).toLocaleString()}</h4>
-          <hr className="my-4" />
+          <div className="tabs">
+            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                aria-label="basic tabs example"
+              >
+                <Tab label="BullPut" value="BullPut" />
+                <Tab label="BearCall" value="BearCall" />
+                <Tab label="IronCon" value="IronCon" />
+              </Tabs>
+            </Box>
+            {/* <TabPanel data={screenerData} /> */}
+          </div>
           <div className="data-grid">
             <StyledDataGrid
               rows={formattedRows}

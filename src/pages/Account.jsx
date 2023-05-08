@@ -9,14 +9,11 @@ import { socket } from "../Auth";
 
 const Account = () => {
   const [amountEarnedToday, setAmountEarnedToday] = useState([]);
-  const [accountChartData, setAccountChartData] = useState([]);
   const [currentBalance, setCurrentBalance] = useState(10000);
+  const [balanceForChart, setBalanceForChart] = useState([]);
 
   useEffect(() => {
     socket.emit("account");
-    socket.on("account-chart", (data) => {
-      setAccountChartData(data);
-    });
     socket.on("earned-today", (data) => {
       setAmountEarnedToday(data);
       //[data = [int: earnedToday, int: percentChange]]
@@ -24,6 +21,9 @@ const Account = () => {
     socket.emit("dash");
     socket.on("current-balance", (data) => {
       setCurrentBalance(data);
+    });
+    socket.on("daily-info", (data) => {
+      setBalanceForChart(data);
     });
     const interval = setInterval(() => {
       socket.emit("dash");
@@ -49,9 +49,9 @@ const Account = () => {
             />
             <div className="account-chat">
               <ChartComponent
-                name="My balance"
-                display="account"
-                data={accountChartData}
+                name="Daily Overview"
+                display="dashboard"
+                data={balanceForChart}
               />
             </div>
             <ActiveOptions />

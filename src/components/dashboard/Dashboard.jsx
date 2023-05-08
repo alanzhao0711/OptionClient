@@ -1,15 +1,15 @@
 import React from "react";
 import "./Dashboard.scss";
 import Widget from "./Widget";
-import ChartComponent from "./ChartComponent";
 import StockCard from "./StockCard";
 import { v4 as uuidv4 } from "uuid";
 import { useEffect, useState } from "react";
 import GetDate from "./GetDate";
 import { socket } from "../../Auth";
+import PLCalendar from "./PLCalendar";
 
 const Dashboard = () => {
-  const [balanceForChart, setBalanceForChart] = useState([]);
+  const [balanceCalendar, setBalanceCalendar] = useState([]);
   const [currentBalance, setCurrentBalance] = useState(8500);
   const [numTransactions, setNumTransactions] = useState(0);
   const [numActive, setNumActive] = useState(0);
@@ -28,8 +28,8 @@ const Dashboard = () => {
     socket.on("current-balance", (data) => {
       setCurrentBalance(data);
     });
-    socket.on("daily-info", (data) => {
-      setBalanceForChart(data);
+    socket.on("calendar", (data) => {
+      setBalanceCalendar(data);
     });
     const interval = setInterval(() => {
       socket.emit("dash");
@@ -38,7 +38,7 @@ const Dashboard = () => {
       clearInterval(interval);
     };
   }, []);
-
+  console.log(balanceCalendar);
   return (
     <div className="dashboard">
       <div className="container col-md-12">
@@ -54,11 +54,12 @@ const Dashboard = () => {
         <div className="middle-content container" style={{ padding: "0" }}>
           <div className="row">
             <div className="col-md-8">
-              <ChartComponent
+              {/* <ChartComponent
                 name="Daily Overview"
                 display="dashboard"
                 data={balanceForChart}
-              />
+              /> */}
+              <PLCalendar data={balanceCalendar} />
             </div>
             <div className="col-md-4">
               {recentActive.map((item) => (

@@ -1,0 +1,30 @@
+.fc-daygrid-event-dot {
+  display: none; /* hide the blue dot */
+}
+
+.fc-daygrid-event {
+  background-color: white; /* remove the blue background color */
+  border: 0;
+  text-align: center; /* center the text horizontally */
+  margin: 0 auto; /* center the text vertically */
+  border-style: none;
+}
+
+.fc-event-title {
+  text-align: center;
+  font-size: 1rem;
+  color: black;
+}
+
+.fc {
+  a {
+    text-decoration: none;
+    color: black;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .fc-event-title {
+    font-size: 0.8rem;
+  }
+}
