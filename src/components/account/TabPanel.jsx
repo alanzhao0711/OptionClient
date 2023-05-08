@@ -32,19 +32,19 @@ const TabPanel = (props) => {
     { field: "Symbol", headerName: "Symbol", width: 100 },
     { field: "Price", headerName: "Price", width: 100 },
     { field: "Max Profit", headerName: "Credited", width: 100 },
-    { field: "CurrentPrice", headerName: "Current Price", width: 100 },
-    { field: "P&L", headerName: "P&L", width: 100, type: "number" },
+    // { field: "CurrentPrice", headerName: "Current Price", width: 100 },
+    // { field: "P&L", headerName: "P&L", width: 100, type: "number" },
     { field: "Quantity", headerName: "Quantity", width: 100 },
 
     { field: "ExpectedValue", headerName: "ExpectedValue", width: 100 },
     { field: "KellyCriterion", headerName: "KellyCriterion", width: 100 },
-    { field: "Max Profit%", headerName: "Max Profit%", width: 100 },
+    { field: "Exp Date", headerName: "Exp Date", width: 100 },
+    // { field: "Max Profit%", headerName: "Max Profit%", width: 100 },
     { field: "Max Loss", headerName: "Max Loss", width: 100 },
     { field: "BE+", headerName: "BE+", width: 100 },
     { field: "BE-", headerName: "BE-", width: 100 },
     { field: "Purchased", headerName: "Purchased", width: 100 },
     { field: "Probability", headerName: "Probability", width: 100 },
-    { field: "Exp Date", headerName: "Exp Date", width: 100 },
     { field: "Leg 1", headerName: "Leg 1", width: 100 },
     { field: "Leg 2", headerName: "Leg 2", width: 100 },
     { field: "Leg 3", headerName: "Leg 3", width: 100 },
@@ -60,15 +60,15 @@ const TabPanel = (props) => {
       ExpectedValue: row.ExpectedValue,
       Quantity: row.Quantity,
       KellyCriterion: (row.KellyCriterion * 100).toFixed(2),
-      "P&L": (
-        (row["Max Profit"] - row["CurrentPrice"]) *
-        row["Quantity"] *
-        100
-      ).toFixed(2),
+      // "P&L": (
+      //   (row["Max Profit"] - row["CurrentPrice"]) *
+      //   row["Quantity"] *
+      //   100
+      // ).toFixed(2),
       "Max Profit": row["Max Profit"],
-      CurrentPrice: row["CurrentPrice"],
+      // CurrentPrice: row["CurrentPrice"],
       "Exp Date": row["Exp Date"],
-      "Max Profit%": row["Max Profit%"],
+      // "Max Profit%": row["Max Profit%"],
       "Max Loss": row["Max Loss"],
       Probability: row.Probability,
     };
