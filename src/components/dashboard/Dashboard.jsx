@@ -38,7 +38,6 @@ const Dashboard = () => {
       clearInterval(interval);
     };
   }, []);
-  console.log(balanceCalendar);
   return (
     <div className="dashboard">
       <div className="container col-md-12">
