@@ -3,6 +3,7 @@ import "./Contract.scss";
 import Sidebar from "../components/sidebar/Sidebar";
 import getDate from "../components/dashboard/GetDate";
 import AllOptions from "../components/account/AllOptions";
+import { socket } from "../Auth";
 
 const Contract = () => {
   useEffect(() => {
