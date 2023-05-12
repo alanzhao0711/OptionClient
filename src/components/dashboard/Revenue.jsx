@@ -2,7 +2,7 @@ import React from "react";
 import "./Revenue.scss";
 
 const Revenue = (props) => {
-  const percent = ((props.balance - 8500) / 100).toFixed(2);
+  const percent = (((props.balance - 8500) / 8500) * 100).toFixed(2);
   return (
     <div className="revenue">
       <div className="container">
