@@ -27,6 +27,7 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
 const ActiveOptions = () => {
   const [data, setData] = useState([]);
   const [currentPL, setCurrentPL] = useState(0);
+  const [currentCost, setCurrentCost] = useState(0);
   const [value, setValue] = useState("BullPut");
   useEffect(() => {
     socket.emit("dash");
@@ -35,6 +36,9 @@ const ActiveOptions = () => {
     });
     socket.on("account-PL", (data) => {
       setCurrentPL(data);
+    });
+    socket.on("cost", (data) => {
+      setCurrentCost(data);
     });
     // return () => {
     //   socket.disconnect();
@@ -136,7 +140,22 @@ const ActiveOptions = () => {
       <div className="card" style={{ marginTop: "20px" }}>
         <div className="card-body">
           <h4 className="card-title mb-4">My contracts</h4>
-          <h4>${currentPL.toFixed(2).toLocaleString()}</h4>
+          <div className="card-body">
+            <h5>
+              <i
+                className="bi bi-dot"
+                style={{ fontSize: "1.5rem", color: "gold" }}
+              ></i>
+              Contract Market Value: ${currentPL.toFixed(2).toLocaleString()}
+            </h5>
+            <h5>
+              <i
+                className="bi bi-dot"
+                style={{ fontSize: "1.5rem", color: "blue" }}
+              ></i>
+              Total Cost/Max Loss: ${currentCost.toFixed(2).toLocaleString()}
+            </h5>
+          </div>
           <div className="tabs">
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
               <Tabs
@@ -156,7 +175,8 @@ const ActiveOptions = () => {
               rows={formattedRows}
               columns={columns}
               getRowClassName={getRowClassName}
-              pageSize={5}
+              pageSize={10}
+              pagination
               checkboxSelection
               sortModel={sortModel}
               onSortModelChange={(model) => setSortModel(model)}
