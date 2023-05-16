@@ -77,9 +77,9 @@ const ActiveOptions = () => {
     { field: "Quantity", headerName: "Quantity", width: 100 },
 
     // { field: "Max Profit%", headerName: "Max Profit%", width: 100 },
-    // { field: "Max Loss", headerName: "Max Loss", width: 100 },
     { field: "BE+", headerName: "BE+", width: 100 },
     { field: "BE-", headerName: "BE-", width: 100 },
+    { field: "Max Loss", headerName: "Max Loss", width: 100 },
     // { field: "Probability", headerName: "Probability", width: 100 },
     { field: "Exp Date", headerName: "Exp Date", width: 100 },
     { field: "Leg 1", headerName: "Leg 1", width: 100 },
@@ -105,16 +105,14 @@ const ActiveOptions = () => {
       "Max Profit": row["Max Profit"],
       CurrentPrice: row["CurrentPrice"],
       "Exp Date": row["Exp Date"],
-      // "Max Profit%": row["Max Profit%"],
-      // "Max Loss": row["Max Loss"],
-      // Probability: row.Probability,
+      "Max Loss": row["Max Loss"],
     };
     if (row["BE"]) {
       if (row["Strategy"] === "BearCall") {
-        formattedRow["BE+"] = "";
+        // formattedRow["BE+"] = "";
         formattedRow["BE-"] = row.BE;
       } else if (row["Strategy"] === "BullPut") {
-        formattedRow["BE-"] = "";
+        // formattedRow["BE-"] = "";
         formattedRow["BE+"] = row.BE;
       }
     } else {

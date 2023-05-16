@@ -29,7 +29,7 @@ const Sidebar = () => {
             marginLeft: "2rem",
           }}
         >
-          <i class="bi bi-list"></i>
+          <i className="bi bi-list"></i>
         </button>
       </div>
       <hr />
