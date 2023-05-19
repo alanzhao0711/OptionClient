@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 import "./ActiveOptions.scss";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, useGridApiRef } from "@mui/x-data-grid";
 import { useState } from "react";
 import { styled } from "@mui/material/styles";
 import { socket } from "../../Auth";
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
+import axios from "axios";
 
 const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
   "& .green-row": {
@@ -69,12 +70,12 @@ const ActiveOptions = () => {
   ]);
 
   const columns = [
-    { field: "Symbol", headerName: "Symbol", width: 100 },
-    { field: "Price", headerName: "Price", width: 100 },
-    { field: "Max Profit", headerName: "Credited", width: 100 },
-    { field: "CurrentPrice", headerName: "Current Price", width: 100 },
-    { field: "P&L", headerName: "P&L", width: 100, type: "number" },
-    { field: "Quantity", headerName: "Quantity", width: 100 },
+    { field: "Symbol", headerName: "Symbol", width: 70 },
+    { field: "Price", headerName: "Price", width: 70 },
+    { field: "Max Profit", headerName: "Credited", width: 70 },
+    { field: "CurrentPrice", headerName: "Current Price", width: 70 },
+    { field: "P&L", headerName: "P&L", width: 70, type: "number" },
+    { field: "Quantity", headerName: "Quantity", width: 70 },
 
     // { field: "Max Profit%", headerName: "Max Profit%", width: 100 },
     { field: "BE+", headerName: "BE+", width: 100 },
@@ -82,18 +83,18 @@ const ActiveOptions = () => {
     { field: "Max Loss", headerName: "Max Loss", width: 100 },
     // { field: "Probability", headerName: "Probability", width: 100 },
     { field: "Exp Date", headerName: "Exp Date", width: 100 },
-    { field: "Leg 1", headerName: "Leg 1", width: 100 },
-    { field: "Leg 2", headerName: "Leg 2", width: 100 },
-    { field: "Leg 3", headerName: "Leg 3", width: 100 },
-    { field: "Leg 4", headerName: "Leg 4", width: 100 },
+    { field: "Leg 1", headerName: "Leg 1", width: 70 },
+    { field: "Leg 2", headerName: "Leg 2", width: 70 },
+    { field: "Leg 3", headerName: "Leg 3", width: 70 },
+    { field: "Leg 4", headerName: "Leg 4", width: 70 },
   ];
 
   const filterdData = data.filter((row) => {
     return row.Strategy === value;
   });
-  const formattedRows = filterdData.map((row) => {
+  const formattedRows = filterdData.map((row, index) => {
     const formattedRow = {
-      id: uuidv4(),
+      id: index,
       Symbol: row.Symbol,
       Price: row.Price,
       Quantity: row.Quantity,
@@ -106,6 +107,8 @@ const ActiveOptions = () => {
       CurrentPrice: row["CurrentPrice"],
       "Exp Date": row["Exp Date"],
       "Max Loss": row["Max Loss"],
+      KellyCriterion: row["KellyCriterion"],
+      ExpectedValue: row["ExpectedValue"],
     };
     if (row["BE"]) {
       if (row["Strategy"] === "BearCall") {
@@ -132,7 +135,44 @@ const ActiveOptions = () => {
     }
     return formattedRow;
   });
+  const apiRef = useGridApiRef();
+  const [rowSelectionModel, setRowSelectionModel] = useState([]);
+  const [isConfirming, setIsConfirming] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState(false);
 
+  const handlePrintSelectedRows = () => {
+    const rows = apiRef.current.getSelectedRows();
+    const closeOptions = [];
+    rows.forEach((key, val) => {
+      const name =
+        key["Symbol"] +
+        key["Exp Date"] +
+        key["ExpectedValue"] +
+        key["KellyCriterion"];
+      closeOptions.push(name);
+    });
+    axios
+      .post("https://optionx.herokuapp.com/close-positions", closeOptions)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    window.location.reload();
+  };
+
+  const handleClick = () => {
+    setIsConfirming(true);
+    setIsAuthorized(false); // Reset authorization status
+    const password = prompt("Please enter the password"); // Prompt for password
+    if (password === "071199") {
+      setIsAuthorized(true); // Set authorization status if password is correct
+    }
+  };
+  const handleCancel = () => {
+    setIsConfirming(false);
+  };
   return (
     <div style={{ height: "400px" }}>
       <div className="card" style={{ marginTop: "20px" }}>
@@ -153,6 +193,58 @@ const ActiveOptions = () => {
               ></i>
               Total Cost/Max Loss: ${currentCost.toFixed(2).toLocaleString()}
             </h5>
+            <div>
+              {!isConfirming ? (
+                <div>
+                  <i
+                    className="bi bi-dot"
+                    style={{ fontSize: "1.5rem", color: "red" }}
+                  ></i>
+                  <button
+                    style={{
+                      backgroundColor: "#89CFF0",
+                      border: "none",
+                      color: "black",
+                    }}
+                    className="btn btn-primary"
+                    onClick={handleClick}
+                    disabled={rowSelectionModel.length === 0}
+                  >
+                    Close Positions : {rowSelectionModel.length}
+                  </button>
+                </div>
+              ) : (
+                <div>
+                  <p>Are you sure</p>
+                  <button
+                    style={{
+                      backgroundColor: "#1ABC9C",
+                      border: "none",
+                      borderRadius: "15px",
+                      color: "black",
+                      marginRight: "1rem",
+                      fontSize: "1.5rem",
+                    }}
+                    onClick={handlePrintSelectedRows}
+                    disabled={!isAuthorized}
+                  >
+                    <i className="bi bi-check-lg"></i>
+                  </button>
+                  <button
+                    style={{
+                      backgroundColor: "#FF5733",
+                      borderRadius: "15px",
+                      border: "none",
+                      color: "black",
+                      fontSize: "1.5rem",
+                    }}
+                    onClick={handleCancel}
+                  >
+                    <i className="bi bi-x-lg"></i>
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
           <div className="tabs">
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -178,6 +270,11 @@ const ActiveOptions = () => {
               checkboxSelection
               sortModel={sortModel}
               onSortModelChange={(model) => setSortModel(model)}
+              apiRef={apiRef}
+              onRowSelectionModelChange={(newRowSelectionModel) => {
+                setRowSelectionModel(newRowSelectionModel);
+              }}
+              rowSelectionModel={rowSelectionModel}
             />
           </div>
         </div>
