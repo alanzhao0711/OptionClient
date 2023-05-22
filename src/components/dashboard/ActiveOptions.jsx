@@ -152,7 +152,7 @@ const ActiveOptions = () => {
         key["Leg 1"].toFixed(1) +
         key["Leg 2"].toFixed(1);
       closeOptions.push(name);
-      console.log(name);
+      // console.log(name);
     });
     axios
       .post("https://optionx.herokuapp.com/close-positions", closeOptions)
@@ -162,7 +162,7 @@ const ActiveOptions = () => {
       .catch((err) => {
         console.log(err);
       });
-    // window.location.reload();
+    window.location.reload();
   };
 
   const handleClick = () => {
