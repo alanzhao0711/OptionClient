@@ -109,6 +109,7 @@ const ActiveOptions = () => {
       "Max Loss": row["Max Loss"],
       KellyCriterion: row["KellyCriterion"],
       ExpectedValue: row["ExpectedValue"],
+      Strategy: row["Strategy"],
     };
     if (row["BE"]) {
       if (row["Strategy"] === "BearCall") {
@@ -128,10 +129,10 @@ const ActiveOptions = () => {
       formattedRow["Leg 3"] = row["Leg3 Strike"];
       formattedRow["Leg 4"] = row["Leg4 Strike"];
     } else {
-      formattedRow["Leg 2"] = "";
+      formattedRow["Leg 3"] = "";
       formattedRow["Leg 1"] = row["Leg1 Strike"];
       formattedRow["Leg 4"] = "";
-      formattedRow["Leg 3"] = row["Leg2 Strike"];
+      formattedRow["Leg 2"] = row["Leg2 Strike"];
     }
     return formattedRow;
   });
@@ -148,9 +149,10 @@ const ActiveOptions = () => {
         key["Symbol"] +
         key["Exp Date"] +
         key["Strategy"] +
-        key["Leg1 Strike"] +
-        key["Leg2 Strike"];
+        key["Leg 1"].toFixed(1) +
+        key["Leg 2"].toFixed(1);
       closeOptions.push(name);
+      console.log(name);
     });
     axios
       .post("https://optionx.herokuapp.com/close-positions", closeOptions)
@@ -160,7 +162,7 @@ const ActiveOptions = () => {
       .catch((err) => {
         console.log(err);
       });
-    window.location.reload();
+    // window.location.reload();
   };
 
   const handleClick = () => {
