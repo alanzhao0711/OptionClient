@@ -147,8 +147,9 @@ const ActiveOptions = () => {
       const name =
         key["Symbol"] +
         key["Exp Date"] +
-        key["ExpectedValue"] +
-        key["KellyCriterion"];
+        key["Strategy"] +
+        key["Leg1 Strike"] +
+        key["Leg2 Strike"];
       closeOptions.push(name);
     });
     axios
