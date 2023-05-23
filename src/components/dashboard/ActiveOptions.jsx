@@ -145,12 +145,22 @@ const ActiveOptions = () => {
     const rows = apiRef.current.getSelectedRows();
     const closeOptions = [];
     rows.forEach((key, val) => {
-      const name =
-        key["Symbol"] +
-        key["Exp Date"] +
-        key["Strategy"] +
-        key["Leg 1"].toFixed(1) +
-        key["Leg 2"].toFixed(1);
+      let name = "";
+      if (key["Strategy"] === "IronCon") {
+        name =
+          key["Symbol"] +
+          key["Exp Date"] +
+          key["Strategy"] +
+          key["Leg 1"] +
+          key["Leg 2"];
+      } else {
+        name =
+          key["Symbol"] +
+          key["Exp Date"] +
+          key["Strategy"] +
+          key["Leg 1"].toFixed(1) +
+          key["Leg 2"].toFixed(1);
+      }
       closeOptions.push(name);
     });
     axios
